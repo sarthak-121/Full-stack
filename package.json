@@ -1,0 +1,19 @@
+{
+  "name": "full-stack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "author": "Sarthak Kavidayal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.9",
+    "nodemon": "^2.0.6",
+    "socket.io": "^3.0.4",
+    "validator": "^13.5.2"
+  }
+}
