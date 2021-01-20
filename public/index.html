@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/01f29c9a0b.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="primary-navbar">     
+        <nav class="navbar navbar-expand-md sticky-top">
+            <button class="side-bar-toggle"><i class="fas fa-bars"></i></button>
+            <!-- <a href="#" class="navbar-brand"><img src="images/logo.png" alt="logo"></a> -->
+            <span class="navbar-text">Application</span>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container-fluid">
+        <!--side bar-->
+        <div class="side-bar">
+            <!-- <div>
+                <h1>INTRESTS</h1>
+                    <div class="list">
+                        <a href="#">Link 1</a>
+                    </div>
+                    <div class="list">
+                        <a href="#">Link 1</a>
+                    </div>
+            </div>
+            <hr> -->
+            <div id="contacts-list">
+            </div>
+            <hr>
+            <h1>ABOUT</h1>
+                <p>jlsdflsjd</p>
+        </div>
+
+        <div id="chat_area">
+
+            <div class="secondary-navbar">
+                <nav class="navbar navbar-expand-md">
+
+                    <a href="#" class="navbar-brand"></a>
+                    <span class="navbar-text">Chat</span>
+    
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-link">
+                            <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                        </li>
+                    </ul>
+                </nav> 
+            </div>
+
+            <div id="chat">
+                
+            </div>
+
+            <div class="in">
+                <input id="msg" class="message" type="text" placeholder="Enter message here">
+                <button id="send" class="send-button"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/index.js"></script>
+
+</body>
+</html>

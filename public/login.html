@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Log In</title>
+    <style>
+        .container {
+            margin-top: 20px;
+            border: solid black 1px;
+            max-width: 300px;
+        } 
+
+        label{
+            font-family:Arial, Helvetica, sans-serif
+        }
+
+        h1 {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        input {
+            border: none;
+            border-radius: 5px;
+            background-color: aliceblue;
+            padding: 5px;
+            width: 260px;
+            margin: 0px 0px 10px 0px;
+        }
+
+        button {
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+            height: 40px;
+            width: 80px;
+            margin: 0px 0px 20px 0px;
+        }
+
+        button:hover {
+            background-color: rgb(198, 206, 212);
+        }
+        
+        #error-msg {
+            display: none;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <form onsubmit="return false">
+            <h1>Log In</h1>
+            <label >Email</label>
+            <br>
+            <input type="email" placeholder="example@gmail.com" id='email' required>
+            <br>
+            <label >Password</label>
+            <br>
+            <input type="Password" placeholder="password" id='password' required>
+            <br>
+            <h6 id="error-msg">sfasf</h6>
+            <button id="login-button">Log In</button>
+            <p>New user?<a href="/signup.html">Sign up.</a></p>
+        </form>
+    </div>
+    
+    <script src="js/login.js"></script>
+</body>
+</html>
