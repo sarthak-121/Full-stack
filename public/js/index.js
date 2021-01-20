@@ -36,7 +36,7 @@ const socketHandler = (data, userdata) => {
 const checkForUser = async () => {
     const user = JSON.parse(sessionStorage.getItem('user'))
     if(!user) {
-        return  window.location.href = "http://localhost:3000/signup.html"  
+        return  window.location.href = "https://full-stack-chat-app-121.herokuapp.com/signup.html"  
     }
 
     const body = {
