@@ -25,18 +25,20 @@ const socketHandler = (data, userdata) => {
     const sendButton = document.getElementById('send')
 
     sendButton.addEventListener('click', () => {
-        let msg = document.getElementById('msg').value
-        chats.innerHTML = chats.innerHTML +  `<div class="message_recieved"><p>${msg}</p></div>`
-
-        socket.emit('messageRecieved', msg)
+        let msg = document.getElementById('msg')
+        if(msg.value !== "") {
+            chats.innerHTML = chats.innerHTML +  `<div class="message_recieved"><p>${msg.value}</p></div>`
+            socket.emit('messageRecieved', msg.value)
+            msg.value = ''
+        }
     })
 }
 
 
 const checkForUser = async () => {
     const user = JSON.parse(sessionStorage.getItem('user'))
-    if(!user) {
-        return  window.location.href = "https://full-stack-chat-app-121.herokuapp.com/signup.html"  
+    if(!user) {  
+        return window.location.href = '/signup.html'
     }
 
     const body = {
@@ -60,3 +62,9 @@ const checkForUser = async () => {
 
 checkForUser()
 
+
+document.getElementById('side-bar-toggle').addEventListener('click', () => {
+    const sideBar = document.getElementsByClassName('side-bar')[0]
+    console.log(sideBar)
+    console.log(sideBar.style)
+})

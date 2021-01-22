@@ -25,7 +25,7 @@ document.getElementById('submit-button').addEventListener('click', async (e) => 
            
             if(status === 201) {
                 sessionStorage.setItem('user', JSON.stringify(data))
-                window.location.href = "https://full-stack-chat-app-121.herokuapp.com/"
+                window.location.href = '/'
             } else {
                 errorMsg.innerHTML = "try again :("
             }

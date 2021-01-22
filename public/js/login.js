@@ -25,7 +25,7 @@ document.getElementById("login-button").addEventListener('click', async () => {
 
         if(status === 200) {
             sessionStorage.setItem('user', JSON.stringify(data))
-            window.location.href = "https://full-stack-chat-app-121.herokuapp.com/"
+            window.location.href = '/'
         } 
     } catch(e) {
         console.log(e)

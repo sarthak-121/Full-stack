@@ -6,4 +6,4 @@ mongoose.connect(process.env.MONGODB_URL ,  {
     useFindAndModify: false
 })
 
-//   /Users/setuk/mongodb/bin/mongod.exe --dbpath=/Users/setuk/mongodb-data
+//   mongod --dbpath=/Users/setuk/mongodb-data
