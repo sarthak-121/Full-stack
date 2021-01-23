@@ -18,7 +18,16 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                   <button class="toggle-button"><i class="fas fa-user-circle"></i></button>
+                   <button id="user-circle-toggle-button" class="toggle-button"><i class="fas fa-user-circle fa-2x"></i></button>
+                   <div class='drop-down-menue'>
+                        <ul>
+                            <i class="fas fa-hammer fa-lg"></i><button class="toggle-button">Settings</button>
+                            <br>
+                            <i class="fas fa-envelope fa-lg"></i><button class="toggle-button"></i>Requests</button>
+                            <hr>
+                            <i class="fas fa-sign-out-alt fa-lg"></i><button class="toggle-button"></i>Log out</button>
+                        </ul>
+                   </div>
                 </li>
             </ul>
         </nav>
@@ -27,10 +36,17 @@
     <div class="container-fluid">
         <!--side bar-->
         <div id="side-bar-id" class="side-bar">
-            <div id="contacts-list"></div>
+            <div id="user-info"></div>
             <hr>
-            <h1>ABOUT</h1>
-                <p>jlsdflsjd</p>
+            <div id="people-list"></div>
+            <hr>
+            <div id='contacts-list'>
+                <h2>Contacts</h2>
+                <p style="margin-left: 10px;">No Contacts Yet.</p>
+            </div>
+            <hr>
+            <h2>ABOUT</h2>
+            <p style="margin-left: 10px;">&#169 SARTHAK KAVIDAYAL</p>
         </div>
 
         <div id="chat_area">
@@ -38,13 +54,13 @@
             <div class="secondary-navbar">
                 <nav class="navbar navbar-expand-md">
 
-                    <button id="side-bar-toggle" class='toggle-button'><i class="fas fa-bars"></i></button>
+                    <button id="side-bar-toggle" class='toggle-button'><i class="fas fa-bars fa-lg"></i></button>
                     <a href="#" class="navbar-brand"></a>
                     <span class="navbar-text">Chat</span>
     
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-link">
-                            <button class="toggle-button"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="toggle-button"><i class="fas fa-ellipsis-v fa-lg"></i></button>
                         </li>
                     </ul>
                 </nav> 
