@@ -97,7 +97,12 @@ document.getElementById('side-bar-toggle').addEventListener('click', () => {
 })
 
 document.getElementById('user-circle-toggle-button').addEventListener('click', () => {
-    console.log("worked")
     const dropDownMenue = document.getElementsByClassName('drop-down-menue')[0]
-    dropDownMenue.style.display = "block" 
+    const css = dropDownMenue.currentStyle || window.getComputedStyle(dropDownMenue)
+
+    if(css.display === 'none') {
+        dropDownMenue.style.display = "block"
+    } else {
+        dropDownMenue.style.display = "none"
+    }    
 })
