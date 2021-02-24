@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -21,11 +21,11 @@
                    <button id="user-circle-toggle-button" class="toggle-button"><i class="fas fa-user-circle fa-2x"></i></button>
                    <div class='drop-down-menue'>
                         <ul>
-                            <i class="fas fa-hammer fa-lg"></i><button class="toggle-button">Settings</button>
+                            <i class="fas fa-hammer"></i><button class="toggle-button">Settings</button>
                             <br>
-                            <i class="fas fa-envelope fa-lg"></i><button class="toggle-button"></i>Requests</button>
+                            <i class="fas fa-envelope"></i><button id="request-button" class="toggle-button"></i>Requests</button>
                             <hr>
-                            <i class="fas fa-sign-out-alt fa-lg"></i><button class="toggle-button"></i>Log out</button>
+                            <i class="fas fa-sign-out-alt"></i><button class="toggle-button"></i>Log out</button>
                         </ul>
                    </div>
                 </li>
@@ -72,7 +72,20 @@
                 <input id="msg" class="message" type="text" placeholder="Enter message here">
                 <button id="send" class="send-button"><i class="fas fa-paper-plane"></i></button>
             </div>
+
+            <!-- <h2 class="headings">Requests</h2>
+            <hr>
+            <div class="req-div">
+                <h3 class="headings">Sent</h3>
+                <p>No requests sended.</p>
+            </div>
+            <div class="req-div">
+                <h3 class="headings">Recieved</h3>
+                <p>No requests recieved.</p>
+            </div> -->
+
         </div>
+
     </div>
 
     <footer>

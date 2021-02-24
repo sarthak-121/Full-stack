@@ -34,4 +34,22 @@ router.post('/app', auth, async (req, res) => {
     }
 })
 
+router.post('/request', auth, async (req, res) => {
+    try {
+        await User.setRequest(req.body.username, req.body.request)
+        res.status(200).send()
+    } catch(e) {
+        res.status(500).send(e)
+    }
+})
+
+router.post('/getRequest', auth, async (req, res) => {
+    try {
+        const request = await User.getRequests(req.body.username)
+        res.send(request)
+    } catch(e) {
+        res.status(500).send(e)
+    }
+})
+
 module.exports = router

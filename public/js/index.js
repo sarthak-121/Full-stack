@@ -1,10 +1,31 @@
-const socketHandler = (data, userdata) => {
-    const socket = io()
-
-    const userInfo = document.getElementById('user-info')
-    userInfo.innerHTML = `<h1>Hi,<img src='image/avatar.jpg' alt='avatar' class='user-image'></h1>
-                            <h1>${userdata.username}</h1>`
+const displayPeopleList = async (data, userdata) => {   
+    const body = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: userdata.username
+        })
+    }
     
+    const response = await fetch('/getRequest', body)
+    const requests = await response.json()
+
+    if(response.status !== 200)
+    
+    requests.sended.forEach(user => {
+        if(user === '_sended') return
+
+        data.splice(data.indexOf(user), 1)
+    })
+
+    requests.recieved.forEach(user => {
+        if(user === '_recieved') return
+
+        data.splice(data.indexOf(user), 1)
+    })
+
     const contactsList = document.getElementById('people-list')
     let str = `<h2>PEOPLE</h2>` 
 
@@ -12,10 +33,79 @@ const socketHandler = (data, userdata) => {
         if(user === userdata.username) {
           return
         }
+
+        if(user.length > 30) {
+            user = user.slice(0,26) + '...'
+         }
+
         str = str + `<div class="list">${user}<button class="add-button">Add</button></div>`  
     })
 
     contactsList.innerHTML = str
+}
+
+
+const socketHandler = (data, userdata) => {
+    const socket = io()
+
+    let username = userdata.username
+    if(username.length > 18) {
+       username = username.slice(0,15) + '...'
+    }
+
+    const userInfo = document.getElementById('user-info')
+    userInfo.innerHTML = `<h1>Hi,<img src='image/avatar.jpg' alt='avatar' class='user-image'></h1>
+                            <h1>${username}</h1>`
+
+    displayPeopleList(data, userdata)
+
+    const addButton = document.getElementsByClassName('add-button')
+
+    for(let i = 0 ; i < addButton.length ; i++) {
+        addButton[i].addEventListener('click', () => {
+            console.log("button worked")
+        })
+    }
+
+    const lists = document.getElementsByClassName('list')
+
+
+    console.log(lists)
+    console.log(typeof(lists))
+
+    for(let i = 0 ; i < lists.length ; i++) {    
+        console.log(typeof(lists[i]))
+        lists[i].addEventListener('click', async () => {
+            console.log("working?")
+            // let requests = []
+            
+            // if(JSON.parse(localStorage.getItem('requests'))) {
+            //     requests  = JSON.parse(localStorage.getItem('requests'))
+            // }
+
+            const data = list[i].innerHTML.replace('<button class="add-button">Add</button>', '')
+
+            // requests.push(data)
+            // localStorage.setItem('requests', JSON.stringify(requests))
+
+            const body = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: userdata.username,
+                    request: data
+                })
+            }
+
+            const response = await fetch('/request', body)
+            if(response.status === 200) {
+                location.reload()
+            }
+        })
+    }
+    
     let chats =  document.getElementById('chat')
 
     socket.on('welcomeMessage', (msg) => {
@@ -39,8 +129,7 @@ const socketHandler = (data, userdata) => {
 }
 
 
-const checkForUser = async () => {
-    const user = JSON.parse(sessionStorage.getItem('user'))
+const checkForUser = async (user) => {
     if(!user) {  
         return window.location.href = '/signup.html'
     }
@@ -61,10 +150,14 @@ const checkForUser = async () => {
         
         if(status === 200) {
             socketHandler(data, user)
+        } else {
+            return window.location.href = '/signup.html'
         }
 }
 
-checkForUser()
+const user = JSON.parse(sessionStorage.getItem('user'))
+
+checkForUser(user)
 
 
 addEventListener('keydown', (event) => {
@@ -105,4 +198,8 @@ document.getElementById('user-circle-toggle-button').addEventListener('click', (
     } else {
         dropDownMenue.style.display = "none"
     }    
+})
+
+document.getElementById('request-button').addEventListener('click', () => {
+    location.href = './request.html'
 })

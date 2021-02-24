@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requests</title>
+    <script src="https://kit.fontawesome.com/01f29c9a0b.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="primary-navbar">     
+        <nav class="navbar navbar-expand-md sticky-top">
+            <span class="navbar-text">Application</span>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                   <button id="user-circle-toggle-button" class="toggle-button"><i class="fas fa-user-circle fa-2x"></i></button>
+                   <div class='drop-down-menue'>
+                        <ul>
+                            <i class="fas fa-hammer"></i><button class="toggle-button">Settings</button>
+                            <br>
+                            <i class="fas fa-envelope"></i><button id="request-button" class="toggle-button"></i>Requests</button>
+                            <hr>
+                            <i class="fas fa-sign-out-alt"></i><button class="toggle-button"></i>Log out</button>
+                        </ul>
+                   </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+
+        <div id="recieved-box" class="box">
+            <h2>Recieved</h2>
+            <p>No requests recieved yet!</p>
+        </div>
+
+        <div id="sended-box" class="box">
+            <h2>Sended</h2>
+            <p>No requests sended yet!</p>
+        </div>
+
+    </div>
+
+    <script src="js/request.js"></script>
+</body>
+</html>

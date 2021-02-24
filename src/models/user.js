@@ -24,6 +24,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    }, 
+    sended: {
+        type: [String],
+        'default': "_sended"
+    },
+    recieved: {
+        type: [String],
+        'default': "_recieved"
     }
 })
 
@@ -43,13 +51,31 @@ userSchema.statics.findByCridentials = async (email, password) => {
 }
 
 userSchema.statics.getUsers = async () => {
-    const users = await User.find({})
+    const users = await User.find({}, {username: 1, _id: 0})
     const userArray = []
     users.forEach(user => {
         userArray.push(user.username)
     })
 
     return userArray
+}
+
+userSchema.statics.setRequest = async (sender, reciever) => {
+    try {
+        await User.updateOne({username: sender}, {$push: {sended: reciever}})
+        await User.updateOne({username: reciever}, {$push: {recieved: sender}})
+    } catch(e) {
+        throw new Error("Unable to send request")
+    }
+}
+
+userSchema.statics.getRequests = async (username) => {
+    try {
+       const data = await User.findOne({username}, {sended: 1, recieved: 1, _id: 0})
+       return data
+    } catch(e) {
+        throw new Error("unable to fetch requests")
+    }
 }
 
 const User = mongoose.model('User', userSchema)
