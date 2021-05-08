@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post('/app', auth, async (req, res) => {
+router.post('/people', auth, async (req, res) => {
     try {
         const users = await User.getUsers()
         res.send(users)
@@ -50,6 +50,15 @@ router.post('/getRequest', auth, async (req, res) => {
     } catch(e) {
         res.status(500).send(e)
     }
+})
+
+
+// test router
+router.get('/getmedata', (req, res) => {
+    res.send({
+        working: "ok",
+        status: "good luck"
+    })
 })
 
 module.exports = router

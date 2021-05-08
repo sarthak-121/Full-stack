@@ -12,7 +12,7 @@ const displayPeopleList = async (data, userdata) => {
     const response = await fetch('/getRequest', body)
     const requests = await response.json()
 
-    if(response.status !== 200)
+    if(response.status !== 200) return
     
     requests.sended.forEach(user => {
         if(user === '_sended') return
@@ -61,6 +61,8 @@ const socketHandler = (data, userdata) => {
 
     const addButton = document.getElementsByClassName('add-button')
 
+    console.log(addButton, addButton.length)
+
     for(let i = 0 ; i < addButton.length ; i++) {
         addButton[i].addEventListener('click', () => {
             console.log("button worked")
@@ -69,24 +71,12 @@ const socketHandler = (data, userdata) => {
 
     const lists = document.getElementsByClassName('list')
 
-
-    console.log(lists)
-    console.log(typeof(lists))
-
     for(let i = 0 ; i < lists.length ; i++) {    
-        console.log(typeof(lists[i]))
+       //  console.log(typeof(lists[i]))
         lists[i].addEventListener('click', async () => {
             console.log("working?")
-            // let requests = []
-            
-            // if(JSON.parse(localStorage.getItem('requests'))) {
-            //     requests  = JSON.parse(localStorage.getItem('requests'))
-            // }
 
             const data = list[i].innerHTML.replace('<button class="add-button">Add</button>', '')
-
-            // requests.push(data)
-            // localStorage.setItem('requests', JSON.stringify(requests))
 
             const body = {
                 method: 'POST',
@@ -159,6 +149,8 @@ const user = JSON.parse(sessionStorage.getItem('user'))
 
 checkForUser(user)
 
+
+// event listeners
 
 addEventListener('keydown', (event) => {
     if(event.key === 'Enter') {
