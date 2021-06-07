@@ -4,10 +4,9 @@ const auth = require('../middleware/auth')
 const router = new express.Router()
 
 router.post('/signup', async (req, res) => {
-    await User.init()
-    const user = new User(req.body)
-
     try {
+        const user = new User(req.body)
+        await User.init()
         await user.save()
         res.status(201).send(user)
     } catch(e) {
@@ -25,7 +24,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post('/people', auth, async (req, res) => {
+router.get('/people', auth, async (req, res) => {
     try {
         const users = await User.getUsers()
         res.send(users)
@@ -34,9 +33,9 @@ router.post('/people', auth, async (req, res) => {
     }
 })
 
-router.post('/request', auth, async (req, res) => {
+router.post('/setRequest', auth, async (req, res) => {
     try {
-        await User.setRequest(req.body.username, req.body.request)
+        await User.setRequest(req.body.sender, req.body.reciever)
         res.status(200).send()
     } catch(e) {
         res.status(500).send(e)
@@ -52,13 +51,29 @@ router.post('/getRequest', auth, async (req, res) => {
     }
 })
 
+router.post('/acceptedReq', auth, async (req, res) => {
+    try {
+        const room = await User.acceptedRequest(req.body.user, req.body.username)
+        res.status(200).send({room})
+    } catch(e) {
+        res.status(500).send()
+    }
+})
+
 
 // test router
-router.get('/getmedata', (req, res) => {
-    res.send({
-        working: "ok",
-        status: "good luck"
-    })
+router.get('/getmedata/:data', async (req, res) => {
+    try {
+        await User.justATest(req.params.data)
+        res.send({
+            data: req.params.data,
+            working: "ok",
+            status: "good luck"
+        })
+    } catch(e) {
+        res.status(500).send(e.message)
+    }
+ 
 })
 
 module.exports = router

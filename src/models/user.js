@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
+const crypto = require('crypto')
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -25,14 +26,13 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     }, 
-    sended: {
-        type: [String],
-        'default': "_sended"
-    },
-    recieved: {
-        type: [String],
-        'default': "_recieved"
-    }
+    sended: [String],
+    recieved: [String], 
+    friends: [{
+        name: {type: String},
+        room: {type: String}
+    }],
+    test: [String]
 })
 
 userSchema.statics.findByCridentials = async (email, password) => {
@@ -62,8 +62,8 @@ userSchema.statics.getUsers = async () => {
 
 userSchema.statics.setRequest = async (sender, reciever) => {
     try {
-        await User.updateOne({username: sender}, {$push: {sended: reciever}})
-        await User.updateOne({username: reciever}, {$push: {recieved: sender}})
+        await User.updateOne({username: sender}, {$addToSet: {sended: reciever}})
+        await User.updateOne({username: reciever}, {$addToSet: {recieved: sender}})
     } catch(e) {
         throw new Error("Unable to send request")
     }
@@ -76,6 +76,32 @@ userSchema.statics.getRequests = async (username) => {
     } catch(e) {
         throw new Error("unable to fetch requests")
     }
+}
+
+userSchema.statics.acceptedRequest = async (user, username) => {
+    const key = user.concat(username)
+    const encodedRoom = crypto.createHash('sha1').update(key).digest('hex')
+    
+    try {
+        await User.updateOne({username}, {$pull: {recieved: user}})
+        await User.updateOne({username}, {$addToSet: {friends: {name: user, room: encodedRoom}}})
+
+        await User.updateOne({username: user}, {$pull: {sended: username}})
+        await User.updateOne({username: user}, {$addToSet: {friends: {name: username, room: encodedRoom}}})
+
+        return encodedRoom
+    } catch(e) {
+        throw new Error('server not working')
+    }
+}
+
+userSchema.statics.justATest = async (data) => {
+    await User.updateMany({}, 
+                    {
+                        $addToSet: {
+                            test: data
+                        }
+                     })
 }
 
 const User = mongoose.model('User', userSchema)
