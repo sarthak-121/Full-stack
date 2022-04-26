@@ -5,6 +5,11 @@ const path = require('path')
 const cors = require('cors')
 const userRouter = require('./routers/user')
 require('./db/database')
+const result = require("dotenv").config();
+
+if (result.error) {
+  console.log("your .env file could not be loaded");
+}
 
 const app = express()
 const server = http.createServer(app)
@@ -38,7 +43,7 @@ io.on('connection', (socket) => {
 
 
 server.listen(port, () => {
-    console.log(`Listining at port ${port}.`)
+    console.log(`Listening at port ${port}.`)
 })
 
 
