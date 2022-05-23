@@ -84,7 +84,7 @@ router.post(
   async (req, res) => {
     console.log(req.file);
 
-    res.send({ success: true, path: req.file.path, file: req.file });
+    res.send({ success: true, filename: req.file.filename });
   }
 );
 
