@@ -5,16 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "env-cmd -f ./config/dev.env nodemon src/app.js"
+    "dev": "nodemon src/app.js"
   },
   "author": "Sarthak Kavidayal",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "crypto-js": "^4.0.0",
+    "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.9",
+    "multer": "^1.4.4",
     "socket.io": "^3.0.4",
     "validator": "^13.5.2"
   },
