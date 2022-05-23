@@ -95,7 +95,7 @@ router.get("/getmedata/:data", async (req, res) => {
     res.send({
       data: req.params.data,
       working: "ok",
-      status: "good luck",
+      status: "All systems go",
     });
   } catch (e) {
     res.status(500).send(e.message);
