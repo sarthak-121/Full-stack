@@ -1,7 +1,22 @@
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
 const router = new express.Router();
+
+const publicDirectoryPath = path.join(__dirname, "../../public/image");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, publicDirectoryPath);
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now().toString());
+  },
+});
+
+const upload = multer({ storage: storage });
 
 router.post("/signup", async (req, res) => {
   try {
@@ -61,6 +76,17 @@ router.post("/acceptedReq", auth, async (req, res) => {
     res.status(500).send();
   }
 });
+
+router.post(
+  "/profile-picture",
+  auth,
+  upload.single("profile_pic"),
+  async (req, res) => {
+    console.log(req.file);
+
+    res.send({ success: true, path: req.file.path });
+  }
+);
 
 // test router
 router.get("/getmedata/:data", async (req, res) => {
