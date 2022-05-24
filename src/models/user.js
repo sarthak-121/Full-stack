@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema({
     },
   ],
   test: [String],
+  profile_picture: {
+    type: String,
+  },
 });
 
 userSchema.statics.findByCridentials = async (email, password) => {
@@ -125,6 +128,18 @@ userSchema.statics.acceptedRequest = async (user, username) => {
     return encodedRoom;
   } catch (e) {
     throw new Error("server not working");
+  }
+};
+
+userSchema.statics.addProfilePicute = async (username, filename) => {
+  try {
+    await User.updateOne({ username }, { $set: { profile_picture: filename } });
+  } catch (e) {
+    throw new Error({
+      error: true,
+      title: "Something went wrong",
+      message: e.message,
+    });
   }
 };
 
