@@ -83,7 +83,8 @@ router.post(
   upload.single("profile_pic"),
   async (req, res) => {
     console.log(req.file);
-    await User.addProfilePicute(username, req.file.filename);
+    console.log(req.body);
+    await User.addProfilePicute(req.body.username, req.file.filename);
     res.send({ success: true, filename: req.file.filename });
   }
 );
