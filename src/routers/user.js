@@ -89,6 +89,15 @@ router.post(
   }
 );
 
+router.get("/friend-profile-picture/:username", auth, async (req, res) => {
+  try {
+    const filename = await User.getProfilePicture(req.params.username);
+    res.send({ success: true, filename });
+  } catch (e) {
+    res.status(400).send({ error: true, message: e.message });
+  }
+});
+
 // test router
 router.get("/getmedata/:data", async (req, res) => {
   try {

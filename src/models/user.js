@@ -143,6 +143,18 @@ userSchema.statics.addProfilePicute = async (username, filename) => {
   }
 };
 
+userSchema.statics.getProfilePicture = async (username) => {
+  try {
+    const data = await User.findOne(
+      { username },
+      { profile_picture: 1, _id: 0 }
+    );
+    return data;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
 userSchema.statics.justATest = async (data) => {
   await User.updateMany(
     {},
