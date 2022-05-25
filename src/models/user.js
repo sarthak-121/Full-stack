@@ -44,14 +44,14 @@ userSchema.statics.findByCridentials = async (email, password) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new Error("Unable to login");
+    throw new Error("No user found");
   }
 
   if (user.password === password) {
     return user;
   } else {
     console.log("working");
-    throw new Error("Unable to login");
+    throw new Error("Password did not match");
   }
 };
 
