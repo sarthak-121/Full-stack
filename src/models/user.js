@@ -57,6 +57,14 @@ userSchema.statics.findByCridentials = async (email, password) => {
   }
 };
 
+userSchema.statics.deleteProfilePicture = async (id) => {
+  try {
+    await User.updateOne({ _id: id }, { $set: { profile_picture: "" } });
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
 userSchema.statics.changePassword = async (email, password) => {
   try {
     await User.updateOne({ email }, { $set: { password } });

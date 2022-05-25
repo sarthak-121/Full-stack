@@ -108,6 +108,16 @@ router.post("/change-pass", async (req, res) => {
   }
 });
 
+router.delete("/profile-picture", auth, async (req, res) => {
+  try {
+    console.log(req.body);
+    await User.deleteProfilePicture(req.body.userData);
+    res.send({ success: true });
+  } catch (e) {
+    res.status(400).send({ error: true, message: e.message });
+  }
+});
+
 router.get("/people", auth, async (req, res) => {
   try {
     const users = await User.getUsers();
