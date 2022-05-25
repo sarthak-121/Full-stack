@@ -55,7 +55,7 @@ userSchema.statics.findByCridentials = async (email, password) => {
   }
 };
 
-userSchema.static.changePassword = async (email, password) => {
+userSchema.statics.changePassword = async (email, password) => {
   try {
     await User.updateOne({ email }, { $set: { password } });
   } catch (e) {
@@ -63,7 +63,7 @@ userSchema.static.changePassword = async (email, password) => {
   }
 };
 
-userSchema.static.findIfEmail = async (email) => {
+userSchema.statics.findIfEmail = async (email) => {
   const user = await User.findOne({ email });
 
   if (!user) {
