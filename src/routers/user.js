@@ -110,9 +110,17 @@ router.post("/change-pass", async (req, res) => {
 
 router.delete("/profile-picture", auth, async (req, res) => {
   try {
-    console.log(req.body);
     await User.deleteProfilePicture(req.body.userData);
     res.send({ success: true });
+  } catch (e) {
+    res.status(400).send({ error: true, message: e.message });
+  }
+});
+
+router.get("/requests", auth, async (req, res) => {
+  try {
+    const requests = await User.getRequests(req.body.userData);
+    res.send({ success: true, data: requests });
   } catch (e) {
     res.status(400).send({ error: true, message: e.message });
   }
@@ -136,14 +144,14 @@ router.post("/setRequest", auth, async (req, res) => {
   }
 });
 
-router.post("/getRequest", auth, async (req, res) => {
-  try {
-    const request = await User.getRequests(req.body.username);
-    res.send(request);
-  } catch (e) {
-    res.status(500).send(e);
-  }
-});
+// router.post("/getRequest", auth, async (req, res) => {
+//   try {
+//     const request = await User.getRequests(req.body.username);
+//     res.send(request);
+//   } catch (e) {
+//     res.status(500).send(e);
+//   }
+// });
 
 router.post("/acceptedReq", auth, async (req, res) => {
   try {

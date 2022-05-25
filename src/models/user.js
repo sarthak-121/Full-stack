@@ -122,10 +122,10 @@ userSchema.statics.setRequest = async (sender, reciever) => {
   }
 };
 
-userSchema.statics.getRequests = async (username) => {
+userSchema.statics.getRequests = async (id) => {
   try {
     const data = await User.findOne(
-      { username },
+      { _id: id },
       { sended: 1, recieved: 1, _id: 0 }
     );
     return data;
