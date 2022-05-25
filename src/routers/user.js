@@ -79,7 +79,6 @@ router.get("/forgot-password/:email", async (req, res) => {
           message: err.message || "Could not send email, Try again.",
         });
       } else {
-        logger.info(info);
         res.send({ success: true, message: "Recovery code sent on mail" });
       }
     });
