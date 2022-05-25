@@ -67,7 +67,7 @@ router.get("/forgot-password/:email", async (req, res) => {
 
     const mailOptions = {
       from: process.env.MAIL_ID,
-      to: req.body.email,
+      to: req.params.email,
       subject: "Account Recovery",
       text: `To reset password click ${process.env.FRONT_END_DOMAIN}change-password?${token} .This link is valid for only 10 mins.`,
     };
