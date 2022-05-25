@@ -74,7 +74,7 @@ router.get("/forgot-password/:email", async (req, res) => {
 
     transport.sendMail(mailOptions, async (err, info) => {
       if (err) {
-        res.send(500).send({
+        res.status(400).send({
           error: true,
           message: err.message || "Could not send email, Try again.",
         });
