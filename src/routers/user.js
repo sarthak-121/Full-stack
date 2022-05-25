@@ -27,7 +27,7 @@ router.post("/signup", async (req, res) => {
     await User.findEmail(email);
     await User.findUserName(username);
     await user.save();
-    const access_token = jwt.sign(user._id, process.env.SECERET_TOKEN);
+    const access_token = jwt.sign(user._id.toJSON(), process.env.SECERET_TOKEN);
     res.status(201).send({ success: true, data: user, token: access_token });
   } catch (e) {
     res.status(400).send({ error: true, message: e.message });
