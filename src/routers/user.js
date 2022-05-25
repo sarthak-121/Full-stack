@@ -19,9 +19,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/signup", async (req, res) => {
+  const { username, email, password } = req.body;
   try {
     const user = new User(req.body);
     await User.init();
+    await User.findEmail(email);
+    await User.findUserName(username);
     await user.save();
     const access_token = jwt.sign(user._id, process.env.SECERET_TOKEN);
     res.status(201).send({ success: true, data: user, token: access_token });
