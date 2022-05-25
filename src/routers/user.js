@@ -69,7 +69,7 @@ router.get("/forgot-password/:email", async (req, res) => {
       from: process.env.MAIL_ID,
       to: req.params.email,
       subject: "Account Recovery",
-      text: `To reset password click ${process.env.FRONT_END_DOMAIN}change-password?${token} .This link is valid for only 10 mins.`,
+      text: `To reset password click ${process.env.FRONT_END_DOMAIN}change-password/${token} .This link is valid for only 10 mins.`,
     };
 
     transport.sendMail(mailOptions, async (err, info) => {
@@ -79,7 +79,8 @@ router.get("/forgot-password/:email", async (req, res) => {
           message: err.message || "Could not send email, Try again.",
         });
       } else {
-        res.send({ success: true, message: "Recovery code sent on mail" });
+        console.log(info);
+        res.send({ success: true, message: "Recovery link sent on mail" });
       }
     });
   } catch (e) {
