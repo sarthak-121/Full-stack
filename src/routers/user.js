@@ -88,16 +88,17 @@ router.get("/forgot-password/:email", async (req, res) => {
   }
 });
 
-router.post("/change-password", async (req, res) => {
+router.post("/change-pass", async (req, res) => {
   const { password, token } = req.body;
   const hashedPassword = await bcrypt.hash(password, 12);
+  console.log(hashedPassword);
 
   try {
-    jwt.verify(token, process.env.JWT_CAND_SCERET_TOKEN, async (err, data) => {
+    jwt.verify(token, process.env.SECERET_TOKEN, async (err, data) => {
       if (err) {
         res.status(400).send({ eroor: true, message: "Not a valid token" });
       } else {
-        User.changePassword(data.email, password);
+        User.changePassword(data.email, hashedPassword);
 
         res.send({ success: true, message: "Password changed" });
       }

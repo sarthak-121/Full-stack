@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -47,7 +48,8 @@ userSchema.statics.findByCridentials = async (email, password) => {
     throw new Error("No user found");
   }
 
-  if (user.password === password) {
+  const match = await bcrypt.compare(password, user.password);
+  if (match) {
     return user;
   } else {
     console.log("working");
