@@ -23,13 +23,14 @@ const upload = multer({ storage: storage });
 
 router.post("/signup", async (req, res) => {
   const { username, email, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 12);
   const body = {
     username,
     email,
-    password: await bcrypt.hash(password, 12),
+    password: hashedPassword,
   };
   try {
-    const user = new User(req.body);
+    const user = new User(body);
     await User.init();
     await User.findEmail(email);
     await User.findUserName(username);
