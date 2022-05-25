@@ -1,9 +1,11 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
-const jwt = require("jsonwebtoken");
+const transpoet = require("../services/mail-transport");
 const router = new express.Router();
 
 const publicDirectoryPath = path.join(__dirname, "../../public/image");
@@ -21,6 +23,11 @@ const upload = multer({ storage: storage });
 
 router.post("/signup", async (req, res) => {
   const { username, email, password } = req.body;
+  const body = {
+    username,
+    email,
+    password: bcrypt.hash(password, 12),
+  };
   try {
     const user = new User(req.body);
     await User.init();
@@ -44,6 +51,59 @@ router.post("/login", async (req, res) => {
     res.send({ success: true, data: user, token: access_token });
   } catch (e) {
     res.status(400).send({ error: true, message: e.message });
+  }
+});
+
+router.get("/forgot-password/:email", async (req, res) => {
+  try {
+    await User.findIfEmail(req.params.email);
+
+    const tokenData = {
+      email: req.params.email,
+    };
+    const token = jwt.sign(tokenData, process.env.JWT_CAND_SCERET_TOKEN, {
+      expiresIn: "10m",
+    });
+
+    const mailOptions = {
+      from: process.env.MAIL_ID,
+      to: req.body.email,
+      subject: "Account Recovery",
+      text: `To reset password click ${process.env.FRONT_END_DOMAIN}change-password?${token} .This link is valid for only 10 mins.`,
+    };
+
+    transport.sendMail(mailOptions, async (err, info) => {
+      if (err) {
+        res.send(500).send({
+          error: true,
+          message: err.message || "Could not send email, Try again.",
+        });
+      } else {
+        logger.info(info);
+        res.send({ success: true, message: "Recovery code sent on mail" });
+      }
+    });
+  } catch (e) {
+    res.status(400).send({ error: true, message: e.message });
+  }
+});
+
+router.post("/change-password", async (req, res) => {
+  const { password, token } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 12);
+
+  try {
+    jwt.verify(token, process.env.JWT_CAND_SCERET_TOKEN, async (err, data) => {
+      if (err) {
+        res.status(400).send({ eroor: true, message: "Not a valid token" });
+      } else {
+        User.changePassword(data.email, password);
+
+        res.send({ success: true, message: "Password changed" });
+      }
+    });
+  } catch (e) {
+    res.status(400).send({ error: true, message: e.message || "Server error" });
   }
 });
 

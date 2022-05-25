@@ -55,6 +55,22 @@ userSchema.statics.findByCridentials = async (email, password) => {
   }
 };
 
+userSchema.static.changePassword = async (email, password) => {
+  try {
+    await User.updateOne({ email }, { $set: { password } });
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+userSchema.static.findIfEmail = async (email) => {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new Error("User does not exist with current email");
+  }
+};
+
 userSchema.statics.findEmail = async (email) => {
   const user = await User.findOne({ email });
 
