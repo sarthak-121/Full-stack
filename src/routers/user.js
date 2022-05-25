@@ -3,6 +3,7 @@ const multer = require("multer");
 const path = require("path");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
+const jwt = require("jsonwebtoken");
 const router = new express.Router();
 
 const publicDirectoryPath = path.join(__dirname, "../../public/image");
