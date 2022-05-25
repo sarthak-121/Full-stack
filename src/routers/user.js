@@ -106,6 +106,7 @@ router.get("/getmedata/:data", async (req, res) => {
       data: req.params.data,
       working: "ok",
       status: "All systems go",
+      seceret: process.env.SECERET_TOKEN,
     });
   } catch (e) {
     res.status(500).send(e.message);

@@ -1,11 +1,26 @@
 const auth = async (res, req, next) => {
-    console.log('working')
+  const { authorization } = req.headers;
 
-    if(0) {
-        res.status(401).send()
-    }
+  if (!authorization) {
+    return res.status(403).send({ error: true, message: "Token not provided" });
+  }
 
-    next()
-}
+  const [authType, token] = authorization.split(" ");
+  if (authType !== "Bearer") {
+    return res.status(403).send({ error: true, message: "Token not provided" });
+  }
 
-module.exports = auth
+  if (!token) {
+    return res.status(403).send({ error: true, message: "Token not provided" });
+  }
+
+  jwt.verify(token, process.env.SECERET_TOKEN, (err, data) => {
+    if (err) return res.status(403);
+
+    req.body.userData = data;
+    next();
+    return;
+  });
+};
+
+module.exports = auth;
