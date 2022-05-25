@@ -61,7 +61,7 @@ router.get("/forgot-password/:email", async (req, res) => {
     const tokenData = {
       email: req.params.email,
     };
-    const token = jwt.sign(tokenData, process.env.JWT_CAND_SCERET_TOKEN, {
+    const token = jwt.sign(tokenData, process.env.SECERET_TOKEN, {
       expiresIn: "10m",
     });
 
