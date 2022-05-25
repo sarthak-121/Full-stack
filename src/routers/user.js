@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
-const transpoet = require("../services/mail-transport");
+const transport = require("../services/mail-transport");
 const router = new express.Router();
 
 const publicDirectoryPath = path.join(__dirname, "../../public/image");
