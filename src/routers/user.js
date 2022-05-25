@@ -23,7 +23,8 @@ router.post("/signup", async (req, res) => {
     const user = new User(req.body);
     await User.init();
     await user.save();
-    res.status(201).send(user);
+    const access_token = jwt.sign(user._id, process.env.SECERET_TOKEN);
+    res.status(201).send({ success: true, data: user, token: access_token });
   } catch (e) {
     res.status(400).send(e);
   }
@@ -35,7 +36,8 @@ router.post("/login", async (req, res) => {
       req.body.email,
       req.body.password
     );
-    res.send(user);
+    const access_token = jwt.sign(user._id, process.env.SECERET_TOKEN);
+    res.send({ success: true, data: user, token: access_token });
   } catch (e) {
     res.status(400).send({ error: true, message: e.message });
   }
@@ -106,7 +108,6 @@ router.get("/getmedata/:data", async (req, res) => {
       data: req.params.data,
       working: "ok",
       status: "All systems go",
-      seceret: process.env.SECERET_TOKEN,
     });
   } catch (e) {
     res.status(500).send(e.message);

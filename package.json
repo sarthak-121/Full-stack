@@ -15,6 +15,7 @@
     "crypto-js": "^4.0.0",
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.9",
     "multer": "^1.4.4",
